@@ -86,11 +86,14 @@ class TodoApp extends Component {
   handleDelete(arg) {
     var deletePopUp = new SwAlert('잠깐', `정말 ${this.state.items[arg].text}을(를) 목록에서 지우시겠어요?`, 'warning', '확인', true, '취소')
     deletePopUp.Alert().then((result)=> {
-      if(result) {
+      if(result.value) {
         var content = Array.from(this.state.items);
         for(var i=0; i<this.state.items.length;i++) {
           if(content[i].id===this.state.selectedId) {
           content.splice(i,1);
+          for(var j=i;j<this.state.items.length-1;j++) {
+            content[j].id=content[j].id-1;
+          }
           this.setState({ items: content })
           break;
           }
@@ -112,7 +115,6 @@ class TodoList extends Component {
       return(
         <li key={index} index={index}>{data.text} 
           <FontAwesomeIcon icon={faTrashAlt} onClick={()=>{
-            console.log(index)
             this.props.event(index);
             this.props.select(index);
           }}/>
@@ -130,6 +132,7 @@ class TodoList extends Component {
     );
   }
   render() {
+    // console.log('TodoList render')
     return (
       <div>
         <ul>
@@ -144,6 +147,7 @@ class TodoList extends Component {
 
 class App extends Component {
   render() {
+    // console.log('App render')
     return(
       <div className="App">
         <TodoApp></TodoApp>
