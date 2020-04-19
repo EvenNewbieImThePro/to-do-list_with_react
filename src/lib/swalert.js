@@ -16,18 +16,18 @@ class SwAlert {
           icon: this.icon,
           confirmButtonText: this.confirmButtonText,
           showCancelButton: this.showCancelButton,
-  
+          confirmButtonColor: '#442f4d',
         })
       );
     }
     Toast() {
       const toast = Swal.mixin({
         toast: true,
-        position:'bottom-end',
-        showConfirmButton: true,
+        position:'top-end',
+        showConfirmButton: false,
         timer: 2500,
         timerProgressBar: true,
-        confirmButtonText: '되돌리기',
+        confirmButtonColor: '442f4d',
         onOpen: (toast) => {
           toast.addEventListener('mouseenter', Swal.stopTimer)
           toast.addEventListener('mouseleave', Swal.resumeTimer)
@@ -36,9 +36,8 @@ class SwAlert {
       return(
         toast.fire({
           icon: 'success',
-          title: '고생했어요'
-        }).then(result => {
-          if(result) {}
+          title: '수고많았어요',
+          showConfirmButton: false,
         })
       );
     }
