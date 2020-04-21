@@ -7,6 +7,7 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import './App.css';
 
 class TodoApp extends Component {
+  
   constructor(props) {
     super(props);
     this.state = { 
@@ -22,7 +23,7 @@ class TodoApp extends Component {
   }
   
   render() {
-    console.log('todo render');
+    console.log('todoApp render');
     return (
       <div className="todo-app">
         <TodoList 
@@ -133,8 +134,8 @@ class TodoApp extends Component {
 }
 
 class TodoList extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    if(this.props===nextProps) {
+  shouldComponentUpdate(newProps) {
+    if(this.props.items===newProps.items) {
       return false;
     }
     else return true;
