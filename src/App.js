@@ -101,12 +101,8 @@ class TodoApp extends Component {
           break;
           }
         }
-        deletePopUp.Toast().then((result)=> {
-          
-            console.log(deletePopUp)
-          
-        });
-      }
+        return deletePopUp.Toast();
+      } else return;
     })
       
   }
@@ -122,11 +118,15 @@ class TodoApp extends Component {
       content[arg].executed=true;
       this.setState({ items: content });
       liTag[arg].style.textDecoration="line-through";
+      liTag[arg].style.borderColor="gray";
+      liTag[arg].style.color="gray";
     }
     else if(content[arg].executed===true) {
       content[arg].executed=false;
       this.setState({ items: content });
       liTag[arg].style.textDecoration="none";
+      liTag[arg].style.borderColor="white";
+      liTag[arg].style.color="white";
     }
     return;
   } 
@@ -144,8 +144,7 @@ class TodoList extends Component {
       return(
           <li key={index} onClick={()=>{
             this.props.select(index);
-            this.props.execute(index);
-          }}>{data.text} 
+          }}><input type="checkbox" onClick={()=>this.props.execute(index)}/>{data.text} 
             <FontAwesomeIcon icon={faTrashAlt} onClick={()=>{
               this.props.delete(index);
               this.props.select(index);

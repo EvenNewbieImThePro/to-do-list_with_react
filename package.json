@@ -21,6 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "homepage": "https://github.com/EvenNewbieImThePro/to-do-list_with_react",
   "eslintConfig": {
     "extends": "react-app"
   },
