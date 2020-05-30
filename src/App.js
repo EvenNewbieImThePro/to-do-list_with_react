@@ -19,7 +19,7 @@ class TodoApp extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
-    this.toggleStatus = this.toggleStatus.bind(this);
+    this.handleStatus = this.handleStatus.bind(this);
   }
   
   render() {
@@ -30,7 +30,7 @@ class TodoApp extends Component {
           items={this.state.items} 
           delete={this.handleDelete}
           select={this.handleSelect}
-          execute={this.toggleStatus}
+          execute={this.handleStatus}
         />
         <form onSubmit={this.handleSubmit}>
           <input
@@ -102,17 +102,23 @@ class TodoApp extends Component {
           break;
           }
         }
+        if(this.state.items.length===0) {
+          this.setState({ selectedId: null })
+        }
         return deletePopUp.Toast();
       } else return;
     })
       
   }
   handleSelect(arg) {
+    if(this.state.selectedId===arg) {
+      return;
+    }
     this.setState({
       selectedId: arg,
     })
   }
-  toggleStatus(arg) {
+  handleStatus(arg) {
     var content = Array.from(this.state.items);
     var liTag = document.getElementsByTagName('li');
     if(content[arg].executed===false) {
@@ -124,10 +130,11 @@ class TodoApp extends Component {
     }
     else if(content[arg].executed===true) {
       content[arg].executed=false;
-      this.setState({ items: content });
       liTag[arg].style.textDecoration="none";
       liTag[arg].style.borderColor="white";
       liTag[arg].style.color="white";
+      this.setState({ items: content, selectedId: null });
+
     }
     return;
   } 
